@@ -8,6 +8,13 @@ julia:
 #  - nightly
 notifications:
 #  email: false
+
+before_install:
+  - sudo add-apt-repository ppa:fenics-packages/fenics
+  - sudo apt-get update -q
+  - sudo apt-get install fenics -y
+  - sudo apt-get dist-upgrade
+
 # uncomment the following lines to override the default test script
 #script:
 #  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
