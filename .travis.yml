@@ -13,7 +13,7 @@ before_install:
   - sudo add-apt-repository ppa:fenics-packages/fenics -y
   - sudo apt-get update -q
   - sudo apt-get install fenics -y
-  - sudo apt-get dist-upgrade
+  #- sudo apt-get dist-upgrade
 
 # uncomment the following lines to override the default test script
 #script:
