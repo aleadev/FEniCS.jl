@@ -2,7 +2,7 @@
 language: julia
 os:
   - linux
-  - osx
+#  - osx
 julia:
   - 0.5
 #  - nightly
@@ -10,7 +10,7 @@ notifications:
 #  email: false
 
 before_install:
-  - sudo add-apt-repository ppa:fenics-packages/fenics
+  - sudo add-apt-repository ppa:fenics-packages/fenics -y
   - sudo apt-get update -q
   - sudo apt-get install fenics -y
   - sudo apt-get dist-upgrade
