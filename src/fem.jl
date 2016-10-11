@@ -1,0 +1,50 @@
+## Boundary conditions
+# TODO: add class
+# TODO: add constructors and other methods
+
+## FunctionSpace class
+@fenicsclass FunctionSpace
+FunctionSpace(mesh::Mesh, family::String, degree::Int) = FunctionSpace(dolfin.FunctionSpace(mesh.pyobject, family, degree))
+export FunctionSpace
+# TODO: import operator(s), at least * (shall that be mapped to ⊗?)
+# TODO: shall we have an enum for the family? or at least named constants?
+
+
+## Expression class
+@fenicsclass Expression
+Expression(expr::String) = Expression(dolfin.Expression(expr))
+export Expression
+# TODO: add degree or element argument (make one necessary) (either degree=2, or V.ufl_element() or V directly)
+# TODO: add optional domain arguments
+
+## Expr class hierarchy (export only classes that are really needed in user code)
+@fenicsclass Expr
+@fenicsclass Argument Expr
+@fenicsclass Constant Expr
+TrialFunction(V::FunctionSpace) = Argument(dolfin.TrialFunction(V.pyobject))
+TestFunction(V::FunctionSpace) = Argument(dolfin.TestFunction(V.pyobject))
+Constant(x::Real) = Constant(dolfin.Constant(x))
+
+export
+  TrialFunction,
+  TestFunction,
+  Constant
+
+## functions that operate on and return Expr's
+nabla_grad(u::Expr) = Expr(dolfin.nabla_grad(u.pyobject))
+inner(u::Expr, v::Expr) = Expr(dolfin.inner(u.pyobject, v.pyobject))
+# TODO: add more functions (e.g. nabla_div, ...)
+export
+  nabla_grad, inner
+
+## Measure class (export only concrete instances)
+@fenicsclass Measure
+dx = Measure(dolfin.dx)
+ds = Measure(dolfin.ds)
+export dx, ds
+
+## Form class and operators that generate forms
+@fenicsclass Form
+*(expr::Expr, measure::Measure) = Form(measure.pyobject[:__rmul__](expr.pyobject) )
+*(expr::Expr, expr2::Expr) = Expr(expr.pyobject[:__mul__](expr2.pyobject) )
+# TODO: import more operators
