@@ -1,26 +1,35 @@
 # Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
+
 os:
   - linux
 #  - osx
+
 julia:
   - 0.5
 #  - nightly
+
 notifications:
-#  email: false
+  email:
+    recipients:
+      - e.zander@tu-bs.de
+      - martin.eigel@wias-berlin.de
+
+branch:
+  - master
 
 before_install:
+  # Install FEniCS (but don't do an 'apt-get upgrade' as this will timeout the process)
   - sudo add-apt-repository ppa:fenics-packages/fenics -y
   - sudo apt-get update -q
   - sudo apt-get install fenics -y
-  #- sudo apt-get dist-upgrade
 
-# uncomment the following lines to override the default test script
-#script:
-#  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-#  - julia -e 'Pkg.clone(pwd()); Pkg.build("FEniCS"); Pkg.test("FEniCS"; coverage=true)'
-#after_success:
-  # push coverage results to Coveralls
-  #- julia -e 'cd(Pkg.dir("FEniCS")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
+script:
+  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+  - julia --check-bounds=yes -e 'Pkg.clone(pwd()); Pkg.build("FEniCS"); Pkg.test("FEniCS"; coverage=true)'
+
+after_success:
   # push coverage results to Codecov
-  #- julia -e 'cd(Pkg.dir("FEniCS")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
+  - julia -e 'cd(Pkg.dir("FEniCS")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
+  # push coverage results to Coveralls
+  - julia -e 'cd(Pkg.dir("FEniCS")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
