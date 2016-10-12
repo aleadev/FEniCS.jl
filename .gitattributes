@@ -1,0 +1,6 @@
+#Please include the following in your .git/config file
+#[filter "ipynb"]
+#	clean = bin/ipynb_output_filter.py
+#	smudge = cat
+
+*.ipynb filter=ipynb

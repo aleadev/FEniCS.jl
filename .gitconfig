@@ -1,0 +1,11 @@
+# Please add this configuration file to your local
+# git config via:
+#   git config --local include.path ../.gitconfig
+# This will make the filters (currently only the one
+# that cleans up the notebook files from output blobs
+# and execution garbage) run, whenever you commit a
+# file.
+
+[filter "ipynb"]
+	clean = bin/ipynb_output_filter.py
+	smudge = cat
