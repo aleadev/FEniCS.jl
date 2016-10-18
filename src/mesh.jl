@@ -27,7 +27,7 @@ export
 
 ## Mesh constructors
 UnitTriangleMesh() = Mesh(dolfin.UnitTriangleMesh())
-#UnitSquareMesh(comm::MPICommunicator, nx::Int, ny::Int; diagonal::String="right") = Mesh(dolfin.UnitSquareMesh(comm, nx, ny, diagonal))
+UnitSquareMesh(comm::MPI_Comm, nx::Int, ny::Int; diagonal::String="right") = Mesh(dolfin.UnitSquareMesh(comm.pyobject, nx, ny, diagonal))
 UnitSquareMesh(nx::Int, ny::Int; diagonal::String="right") = Mesh(dolfin.UnitSquareMesh(nx, ny, diagonal))
 # TODO: add more mesh constructors (Box, Rectangle)
 # TODO: add mesh loading functions

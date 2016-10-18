@@ -27,7 +27,11 @@ using Base.Test
   init(mesh)
   @test size(mesh) == [3, 3, 1, 0]
   @test cells(mesh) == [0 1 2]
+end
 
-
-
+@testset "MPI Tests" begin
+  @test isa(mpi_comm_world(), MPI_Comm)
+  @test isa(mpi_comm_self(), MPI_Comm)
+  @test isa(UnitSquareMesh(mpi_comm_world(), 4, 4), Mesh) # just test that we have the right type as first argument
+  @test isa(UnitSquareMesh(mpi_comm_self(), 4, 4), Mesh) # just test that we have the right type as first argument
 end
