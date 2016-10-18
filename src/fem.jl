@@ -32,7 +32,7 @@ const FAMILY_REAL = "R"
 
 mesh(V::FunctionSpace) = Mesh(fenicscall(V, :mesh))
 ufl_element(V::FunctionSpace) = FiniteElement(fenicscall(V, :ufl_element))
-dim(V::FunctionSpace) = fenicscall(V, :dim)
+dim(V::FunctionSpace) = fenicscall(V, :dim)::Int
 
 export mesh, ufl_element, family, dim
 

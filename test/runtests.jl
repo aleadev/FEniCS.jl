@@ -30,7 +30,9 @@ using Base.Test
 end
 
 @testset "MPI Tests" begin
+  @inferred mpi_comm_world()
   @test isa(mpi_comm_world(), MPI_Comm)
+  @inferred mpi_comm_self()
   @test isa(mpi_comm_self(), MPI_Comm)
   @test isa(UnitSquareMesh(mpi_comm_world(), 4, 4), Mesh) # just test that we have the right type as first argument
   @test isa(UnitSquareMesh(mpi_comm_self(), 4, 4), Mesh) # just test that we have the right type as first argument
@@ -43,6 +45,21 @@ end
 
     @test size(mesh(V),0) == size(origmesh, 0)
     @test isa( ufl_element(V), FiniteElement)
+    @inferred dim(V)
     @test dim(V) == (3*2+1)^2
+  end
+
+  @testset "Solve Laplace" begin
+    mesh = UnitSquareMesh(6, 4)
+    V = FunctionSpace(mesh, "Lagrange", 1)
+    u = TrialFunction(V)
+    v = TestFunction(V)
+    f = Constant(6.0)
+    a = inner(nabla_grad(u), nabla_grad(v)) * dx
+    L = f * v * dx
+    unum = FEniCS.Function(V)
+    problem = LinearVariationalProblem(a, L, unum)
+    solve(problem)
+    @test 0*array(unum) ≈ zeros(dim(V))
   end
 end
