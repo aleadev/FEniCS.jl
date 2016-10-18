@@ -35,3 +35,14 @@ end
   @test isa(UnitSquareMesh(mpi_comm_world(), 4, 4), Mesh) # just test that we have the right type as first argument
   @test isa(UnitSquareMesh(mpi_comm_self(), 4, 4), Mesh) # just test that we have the right type as first argument
 end
+
+@testset "FEM Tests" begin
+  @testset "FunctionSpace Tests" begin
+    origmesh = UnitSquareMesh(2, 2)
+    V = FunctionSpace(origmesh, FEniCS.FAMILY_LAGRANGE, 3)
+
+    @test size(mesh(V),0) == size(origmesh, 0)
+    @test isa( ufl_element(V), FiniteElement)
+    @test dim(V) == (3*2+1)^2
+  end
+end

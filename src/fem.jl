@@ -5,6 +5,7 @@
 
 ## FunctionSpace class
 @fenicsclass FiniteElement
+export FiniteElement
 
 ## FunctionSpace class
 @fenicsclass FunctionSpace
@@ -31,7 +32,6 @@ const FAMILY_REAL = "R"
 
 mesh(V::FunctionSpace) = Mesh(fenicscall(V, :mesh))
 ufl_element(V::FunctionSpace) = FiniteElement(fenicscall(V, :ufl_element))
-family(V::FunctionSpace) = fenicscall(V, :family)::AbstractString
 dim(V::FunctionSpace) = fenicscall(V, :dim)
 
 export mesh, ufl_element, family, dim
