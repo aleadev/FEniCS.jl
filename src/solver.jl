@@ -8,12 +8,14 @@ export Equation
 
 ## The Function class
 # (still problems with the import/export clash with Base.Function or Core.Function)
-@fenicsclass CoefficientFunction
-Function(V::FunctionSpace) = CoefficientFunction(dolfin.Function(V.pyobject))
+#@fenicsclass CoefficientFunction
+@fenicsclass Function
+Function(V::FunctionSpace) = Function(dolfin.Function(V.pyobject))
+export Function
 
 ## LinearVariationalProblem and Solver
 @fenicsclass LinearVariationalProblem
-LinearVariationalProblem(a::Form, L::Form, u::CoefficientFunction) =
+LinearVariationalProblem(a::Form, L::Form, u::Function) =
   LinearVariationalProblem(dolfin.LinearVariationalProblem(a.pyobject, L.pyobject, u.pyobject))
 # TODO: add boundary conditions (class is also missing)
 # TODO: add parameters

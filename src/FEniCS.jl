@@ -6,8 +6,8 @@ using PyCall
 @pyimport ufl
 
 # Explicitly import overridden symbols
-import Base: size, length, *, +, -, Function
-import Core.Function
+import Base: size, length, show, *, +, -, Function
+#import Core.Function
 
 ################3
 ## Base FEniCSObject
@@ -24,6 +24,13 @@ macro fenicsclass(name::Symbol, base1::Symbol=:FEniCSObject, base2::Symbol=:Any,
     $(esc(name))(pyobject::PyObject) = $impl(pyobject)
   end
 end
+
+str(obj::FEniCSObject) = fenicscall(obj, :__str__)
+repr(obj::FEniCSObject) = fenicscall(obj, :__repr__)
+show(io::IO, obj::FEniCSObject) = show(io, str(obj))
+export str, repr
+
+
 
 # A macro that formats a Python error if one is thrown
 macro formatpyerror(expr)
@@ -61,8 +68,9 @@ end # module
 
 module FenicsTest
 using FEniCS, PyCall
+using FEniCS.Function
 
-
+if false
 @show mesh = UnitSquareMesh(6, 4)
 @show V = FunctionSpace(mesh, "Lagrange", 1)
 
@@ -80,5 +88,6 @@ solve(problem)
 @show u_nodal_values = unum.pyobject[:vector]()
 #TODO: create array function in GenericVector and CoefficientFunction
 @show u_array = u_nodal_values[:array]()
+end
 
 end
