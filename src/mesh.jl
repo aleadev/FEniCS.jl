@@ -4,11 +4,11 @@ hmin(mesh::Mesh) = fenicscall(mesh, :hmin)
 hmax(mesh::Mesh) = fenicscall(mesh, :hmax)
 rmin(mesh::Mesh) = fenicscall(mesh, :rmin)
 rmax(mesh::Mesh) = fenicscall(mesh, :rmax)
-cells(mesh::Mesh) = fenicscall(mesh, :cells)
-coordinates(mesh::Mesh) = fenicscall(mesh, :coordinates)
+cells(mesh::Mesh) = fenicscall(mesh, :cells)::Array{UInt32,2}
+coordinates(mesh::Mesh) = fenicscall(mesh, :coordinates)::Array{Float64,2}
 init(mesh::Mesh) = fenicscall(mesh, :init)
-init(mesh::Mesh, dim::Int) = fenicscall(mesh, :init, dim)
-size(mesh::Mesh, dim::Int) = fenicscall(mesh, :size, dim)
+init(mesh::Mesh, dim::Int) = fenicscall(mesh, :init, dim)::Int
+size(mesh::Mesh, dim::Int) = fenicscall(mesh, :size, dim)::Int
 size(mesh::Mesh) = [size(mesh, dim) for dim = 0:3]
 num_cells(mesh::Mesh) = fenicscall(mesh, :num_cells)
 num_edges(mesh::Mesh) = fenicscall(mesh, :num_edges)
