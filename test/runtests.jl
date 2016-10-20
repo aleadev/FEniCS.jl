@@ -39,14 +39,14 @@ include("helpers.jl")
   @test cells(mesh) == [0 1 2]
 end
 
-@testset "MPI Tests" begin
-  @inferred mpi_comm_world()
-  @test isa(mpi_comm_world(), MPI_Comm)
-  @inferred mpi_comm_self()
-  @test isa(mpi_comm_self(), MPI_Comm)
-  @test isa(UnitSquareMesh(mpi_comm_world(), 4, 4), Mesh) # just test that we have the right type as first argument
-  @test isa(UnitSquareMesh(mpi_comm_self(), 4, 4), Mesh) # just test that we have the right type as first argument
-end
+# @testset "MPI Tests" begin
+#   @inferred mpi_comm_world()
+#   @test isa(mpi_comm_world(), MPI_Comm)
+#   @inferred mpi_comm_self()
+#   @test isa(mpi_comm_self(), MPI_Comm)
+#   @test isa(UnitSquareMesh(mpi_comm_world(), 4, 4), Mesh) # just test that we have the right type as first argument
+#   @test isa(UnitSquareMesh(mpi_comm_self(), 4, 4), Mesh) # just test that we have the right type as first argument
+# end
 
 @testset "FEM Tests" begin
   @testset "FunctionSpace Tests" begin
