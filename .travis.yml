@@ -3,7 +3,6 @@ language: julia
 
 os:
   - linux
-#  - osx
 
 julia:
   - 0.5
@@ -18,19 +17,12 @@ notifications:
 branch:
   - master
   - testing
-#sudo: required
-#service:
-#  - docker
 
 before_install:
   # Install FEniCS (but don't do an 'apt-get upgrade' as this will timeout the process)
-  #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
-  #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
   - sudo add-apt-repository ppa:fenics-packages/fenics -y
   - sudo apt-get update -q
   - sudo apt-get install fenics -y
-  #- curl -s https://get.fenicsproject.org | bash
-  #-
 
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
