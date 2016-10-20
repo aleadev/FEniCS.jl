@@ -64,11 +64,11 @@ end
     mesh = UnitSquareMesh(1, 1)
     V = FunctionSpace(mesh, FEniCS.FAMILY_LAGRANGE, 1)
     result = [3.0,1.0,4.0,2.0] # ordering may be arbitrary
-    u0 = Expression("1 + x[0]*x[0] + 2*x[1]*x[1]")
+    # u0 = Expression("1 + x[0]*x[0] + 2*x[1]*x[1]")
     # @test array(interpolate(u0, V)) == result
     u0 = Expression("1 + x[0]*x[0] + 2*x[1]*x[1]", 1)
     # @test array(interpolate(u0, V)) == result
-    u0 = Expression("1 + x[0]*x[0] + 2*x[1]*x[1]", V)
+    # u0 = Expression("1 + x[0]*x[0] + 2*x[1]*x[1]", V)
     # @test array(interpolate(u0, V)) == result
   end
 
