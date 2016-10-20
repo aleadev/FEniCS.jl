@@ -14,9 +14,10 @@ notifications:
       - e.zander@tu-bs.de
       - martin.eigel@wias-berlin.de
 
-branch:
-  - master
-  - testing
+branches:
+  only:
+    - master
+    - testing
 
 before_install:
   # Install FEniCS (but don't do an 'apt-get upgrade' as this will timeout the process)
