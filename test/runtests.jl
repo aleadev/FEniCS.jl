@@ -67,7 +67,7 @@ end
     # u0 = Expression("1 + x[0]*x[0] + 2*x[1]*x[1]")
     # @test array(interpolate(u0, V)) == result
     u0 = Expression("1 + x[0]*x[0] + 2*x[1]*x[1]", 1)
-    # @test array(interpolate(u0, V)) == result
+    @test array(interpolate(u0, V)) == result
     # u0 = Expression("1 + x[0]*x[0] + 2*x[1]*x[1]", V)
     # @test array(interpolate(u0, V)) == result
   end
