@@ -19,10 +19,13 @@ branches:
     - master
     - testing
 
+sudo: required
+dist: trusty
+
 before_install:
   # Install FEniCS (but don't do an 'apt-get upgrade' as this will timeout the process)
-  #- sudo add-apt-repository ppa:fenics-packages/fenics -y
-  - sudo add-apt-repository ppa:fenics-packages/fenics-1.5.x -y
+  - sudo add-apt-repository ppa:fenics-packages/fenics -y
+  #- sudo add-apt-repository ppa:fenics-packages/fenics-1.5.x -y
   - sudo apt-get update -q
   - sudo apt-get install fenics -y
   #- docker pull quay.io/fenicsproject/stable:latest
