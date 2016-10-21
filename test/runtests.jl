@@ -1,3 +1,7 @@
+ENV["PYTHON"] = "/usr/bin/python3"
+Pkg.build("PyCall")
+
+
 using FEniCS
 using Base.Test
 
