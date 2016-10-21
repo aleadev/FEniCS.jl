@@ -3,7 +3,6 @@ language: julia
 
 os:
   - linux
-  - osx
 
 julia:
   - 0.5
@@ -15,14 +14,24 @@ notifications:
       - e.zander@tu-bs.de
       - martin.eigel@wias-berlin.de
 
-branch:
-  - master
+branches:
+  only:
+    - master
+    - testing
+
+sudo: required
+dist: trusty
+env:
+  # Make PyCall use the right python version (where dolfin is installed)
+  - PYTHON=/usr/bin/python2
 
 before_install:
   # Install FEniCS (but don't do an 'apt-get upgrade' as this will timeout the process)
   - sudo add-apt-repository ppa:fenics-packages/fenics -y
   - sudo apt-get update -q
   - sudo apt-get install fenics -y
+  #- docker pull quay.io/fenicsproject/stable:latest
+  #- docker run -ti quay.io/fenicsproject/stable:latest
 
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
