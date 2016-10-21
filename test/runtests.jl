@@ -1,5 +1,5 @@
-ENV["PYTHON"] = "/usr/bin/python2"
-Pkg.build("PyCall")
+#ENV["PYTHON"] = "/usr/bin/python2"
+#Pkg.build("PyCall")
 
 
 using FEniCS

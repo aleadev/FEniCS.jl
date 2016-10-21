@@ -21,6 +21,8 @@ branches:
 
 sudo: required
 dist: trusty
+env:
+  - PYTHON=/usr/bin/python2
 
 before_install:
   # Install FEniCS (but don't do an 'apt-get upgrade' as this will timeout the process)
