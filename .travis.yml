@@ -21,8 +21,8 @@ branches:
 
 sudo: required
 dist: trusty
-env:
-  - PYTHON=/usr/bin/python2
+#env:
+#  - PYTHON=/usr/bin/python2
 
 before_install:
   # Install FEniCS (but don't do an 'apt-get upgrade' as this will timeout the process)
@@ -35,7 +35,7 @@ before_install:
 
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - julia --check-bounds=yes -e 'Pkg.clone(pwd()); Pkg.build("FEniCS"); Pkg.test("FEniCS"; coverage=true)'
+  - PYTHON=/usr/bin/python2 julia --check-bounds=yes -e 'Pkg.clone(pwd()); Pkg.build("FEniCS"); Pkg.test("FEniCS"; coverage=true)'
 
 after_success:
   # push coverage results to Codecov
