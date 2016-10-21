@@ -19,9 +19,8 @@ branches:
     - master
     - testing
 
-sudo: required
-
-dist: trusty
+#sudo: required
+#dist: trusty
 
 before_install:
   # Install FEniCS (but don't do an 'apt-get upgrade' as this will timeout the process)
